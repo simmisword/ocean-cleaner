@@ -1,0 +1,327 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+  margin: 0;
+  padding: 0;
+
+  height: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 800px) {
+  /* CSS that should be displayed if width is equal to or less than 800px goes here */
+
+  #app {
+    /* position: absolute;
+    top: 10vh;
+    height: 80vh; */
+  }
+
+  .ocean-app {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  button,
+  select {
+    position: relative;
+    top: 0;
+    transition: top ease 0.1s;
+    padding: 0.5rem 1rem;
+    margin: auto;
+    border: none;
+    background-color: #786563;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    font-stretch: condensed;
+    border-radius: 1rem;
+    box-shadow: 0px 2px 2px #786563;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button:hover,
+  select:hover {
+    transition: top ease 0.1s;
+    background-color: white;
+    color: #786563;
+    box-shadow: none;
+    top: -0.5px;
+    left: -0.5px;
+    box-shadow: 0px 4px 4px #786563;
+    scale: 1.05;
+  }
+
+  button:active {
+    transition: top ease 0.04s;
+    top: 1px;
+    box-shadow: 0px -2px 4px #786563;
+  }
+
+  .nav,
+  .controls {
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .start {
+    align-content: flex-start;
+  }
+
+  .end {
+    justify-content: right;
+  }
+
+  .control-elements {
+    width: 110vw;
+    align-content: stretch;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 200px;
+    max-width: 50vw;
+  }
+  /* 
+  .audioplayer {
+    display: flex;
+  }
+
+  .audioplayer button {
+    margin-left: 10px;
+  } */
+
+  .scroll-control {
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    vertical-align: middle;
+  }
+
+  label {
+    color: white;
+  }
+
+  .year-label {
+    display: block;
+    position: relative;
+    top: 30vh;
+    transform: rotate(90deg);
+  }
+
+  #year-range-lb-1,
+  #year-range-lb-2 {
+    font-size: 5rem;
+  }
+
+  .nav#nav,
+  .controls#controls {
+    opacity: 0.5;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    height: 10vh;
+    width: 100vw;
+    background: transparent;
+  }
+
+  .gradient-box {
+    position: fixed;
+    top: 0;
+    height: 10vh;
+    width: 100vw;
+  }
+
+  label,
+  .start,
+  .end {
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  #title {
+    /* font-weight: bold; */
+    font-size: 1.5rem;
+    color: white;
+  }
+
+  .controls {
+    position: fixed;
+    top: 90vh;
+    height: 10vh;
+    width: 100vw;
+  }
+
+  .gradient-box#controls {
+    background: linear-gradient(transparent, #786563);
+  }
+
+  .gradient-box#nav {
+    background: linear-gradient(#786563, transparent);
+  }
+
+  .scroll-control {
+    display: block;
+    position: fixed;
+    top: 10vh;
+    left: 90vw;
+    height: 80vh;
+    width: 10vw;
+  }
+
+  .slider-container {
+    vertical-align: top;
+  }
+
+  input[type="range"] {
+    /* writing-mode: bt-lr; 
+      -webkit-appearance:slider-vertical; */
+    -webkit-appearance: none;
+    height: 70vh;
+    width: 8px;
+    background: transparent; /* Otherwise white in Chrome */
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* border: none;
+  height: 1px;
+  width: 16px;
+  border-radius: 0%;
+  background: goldenrod; */
+  }
+
+  .overlay {
+    z-index: 99999;
+    border-radius: 2rem;
+  }
+
+  .info-box {
+    background-color: white;
+    position: fixed;
+    top: 10vh;
+    left: 10vw;
+    width: 80vw;
+    height: 80vh;
+    margin: auto;
+    padding: 1rem;
+    box-shadow: 0 12px 32px #786563;
+    opacity: 0.8;
+  }
+
+  .info-navi {
+    position: absolute;
+    float: left;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 30%;
+
+    text-decoration: none;
+  }
+
+  .info-body {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    right: 0;
+    height: 100%;
+    width: 70%;
+  }
+
+  video {
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+  }
+
+  .skip-container {
+    position: absolute;
+    top: 0;
+    left: 0%;
+    width: 100vw;
+    height: 10vh;
+  }
+
+  .skip-button {
+    margin-top: 3vh;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-left: 5px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #786563;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    color: #786563;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  input:checked + .slider:before {
+    background-color: #786563;
+    color: white;
+  }
+
+  input:checked + .slider {
+    background-color: white;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px white;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+}
