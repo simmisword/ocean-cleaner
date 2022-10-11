@@ -1,3 +1,7 @@
+:root {
+  --interaction-color: #867664;
+}
+
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 
@@ -30,13 +34,13 @@ body {
     padding: 0.5rem 1rem;
     margin: auto;
     border: none;
-    background-color: #786563;
+    background-color: var(--interaction-color);
     color: white;
     font-weight: bold;
     font-size: 0.9rem;
     font-stretch: condensed;
     border-radius: 1rem;
-    box-shadow: 0px 2px 2px #786563;
+    box-shadow: 0px 2px 2px var(--interaction-color);
     align-content: center;
     display: flex;
     justify-content: center;
@@ -47,18 +51,18 @@ body {
   select:hover {
     transition: top ease 0.1s;
     background-color: white;
-    color: #786563;
+    color: var(--interaction-color);
     box-shadow: none;
     top: -0.5px;
     left: -0.5px;
-    box-shadow: 0px 4px 4px #786563;
+    box-shadow: 0px 4px 4px var(--interaction-color);
     scale: 1.05;
   }
 
   button:active {
     transition: top ease 0.04s;
     top: 1px;
-    box-shadow: 0px -2px 4px #786563;
+    box-shadow: 0px -2px 4px var(--interaction-color);
   }
 
   .nav,
@@ -163,11 +167,11 @@ body {
   }
 
   .gradient-box#controls {
-    background: linear-gradient(transparent, #786563);
+    background: linear-gradient(transparent, var(--interaction-color));
   }
 
   .gradient-box#nav {
-    background: linear-gradient(#786563, transparent);
+    background: linear-gradient(var(--interaction-color), transparent);
   }
 
   .scroll-control {
@@ -215,7 +219,7 @@ body {
     height: 80vh;
     margin: auto;
     padding: 1rem;
-    box-shadow: 0 12px 32px #786563;
+    box-shadow: 0 12px 32px var(--interaction-color);
     opacity: 0.8;
   }
 
@@ -279,7 +283,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #786563;
+    background-color: var(--interaction-color);
     -webkit-transition: 0.4s;
     transition: 0.4s;
   }
@@ -292,13 +296,13 @@ body {
     left: 4px;
     bottom: 4px;
     background-color: white;
-    color: #786563;
+    color: var(--interaction-color);
     -webkit-transition: 0.4s;
     transition: 0.4s;
   }
 
   input:checked + .slider:before {
-    background-color: #786563;
+    background-color: var(--interaction-color);
     color: white;
   }
 

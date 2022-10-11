@@ -4,7 +4,7 @@ import { ImprovedNoise } from "three/examples/jsm/math/ImprovedNoise.js";
 import { data } from "./position";
 
 export class Terrain {
-  constructor(worldSize) {
+  constructor(worldSize, sun) {
     this.worldWidth = 32;
     this.worldDepth = 32;
     this.worldHalfWidth = this.worldWidth / 2;
@@ -29,7 +29,7 @@ export class Terrain {
 
     this.geometry.attributes.position.needsUpdate = true;
 
-    this.texture = new THREE.CanvasTexture(this.generateTexture());
+    this.texture = new THREE.CanvasTexture(this.generateTexture(sun));
     this.texture.wrapS = THREE.ClampToEdgeWrapping;
     this.texture.wrapT = THREE.ClampToEdgeWrapping;
 
@@ -66,7 +66,13 @@ export class Terrain {
     return data;
   }
 
-  generateTexture() {
+  updateTexture(sun) {
+    var textureMap = this.mesh.material.map;
+    textureMap = this.generateTexture(sun);
+    this.mesh.material.map.needsUpdate = true;
+  }
+
+  generateTexture(sun) {
     // bake lighting into texture
     const data = this.data;
     const width = this.worldWidth;
@@ -76,7 +82,6 @@ export class Terrain {
 
     const vector3 = new THREE.Vector3(0, 0, 0);
 
-    const sun = new THREE.Vector3(1, 1, 1);
     sun.normalize();
 
     const canvas = document.createElement("canvas");

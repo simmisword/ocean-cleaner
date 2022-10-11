@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ad5b851ab7e9e9af4ba87de61e4256eb61cdb6b3b2829ef1d8ad9f0bef3dd4a0
-size 718
+Model Information:
+* title:	Rusty Can of Sardines
+* source:	https://sketchfab.com/3d-models/rusty-can-of-sardines-af964af1c58840c1baf3cc0dd8cd987d
+* author:	GameDev Nick (https://sketchfab.com/GameDevNick)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Rusty Can of Sardines" (https://sketchfab.com/3d-models/rusty-can-of-sardines-af964af1c58840c1baf3cc0dd8cd987d) by GameDev Nick (https://sketchfab.com/GameDevNick) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

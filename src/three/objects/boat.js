@@ -5,7 +5,6 @@ export class Boat {
     _scene.scale.set(3, 3, 3);
     _scene.position.set(5, 12.9, -20);
 
-    console.log(_scene);
     // _scene.applyMatrix(new THREE.Matrix4().makeTranslation(3, 0, -3));
 
     this.boat = _scene;

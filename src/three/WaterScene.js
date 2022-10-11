@@ -3,14 +3,14 @@ import * as THREE from "three";
 import { objectLoader, loadModel } from "./objects/ObjectLoader";
 
 // import { TrashObjects } from "./objects/trash-objects.js";
-import { Boat } from "./objects/boat.js";
+import { Boat } from "./objects/Boat.js";
 import { PlasticParticles } from "./objects/PlasticParticles";
 
-import { Terrain } from "./terrain/terrain.js";
+import { Terrain } from "./terrain/Terrain.js";
 import { Sea } from "./sea/Sea.js";
-import { SceneSky } from "./sky/Sky.js";
+import { SceneSky } from "./sky/SceneSky.js";
 import { SceneControls } from "./SceneControls.js";
-import { AudioPlayer } from "../audio/audio-player.js";
+import { AudioPlayer } from "../audio/AudioPlayer.js";
 
 import { Trashstore } from "./calculation/TrashStore.js";
 import { TrashObjects } from "./objects/TrashObjects.js";
@@ -45,8 +45,6 @@ export class WaterScene {
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.FogExp2(0x786563, 0.0003);
 
-    this.sun = new THREE.Vector3();
-
     this.sky = new SceneSky(this.worldSize);
     this.scene.add(this.sky.sky);
 
@@ -55,7 +53,7 @@ export class WaterScene {
     this.scene.add(this.sea.waterDown);
     // this.scene.add(this.sea.planctonPoints);
 
-    this.terrain = new Terrain(this.worldSize);
+    this.terrain = new Terrain(this.worldSize, this.sky.sun);
     this.scene.add(this.terrain.mesh);
 
     this.pmremGenerator = new THREE.PMREMGenerator(this.renderer);
@@ -84,22 +82,22 @@ export class WaterScene {
   }
 
   updateSun() {
-    const parameters = {
-      elevation: 2,
-      azimuth: 180,
-    };
+    // const parameters = {
+    //   elevation: 2,
+    //   azimuth: 180,
+    // };
 
-    const phi = THREE.MathUtils.degToRad(90 - parameters.elevation);
-    const theta = THREE.MathUtils.degToRad(parameters.azimuth);
+    // const phi = THREE.MathUtils.degToRad(90 - parameters.elevation);
+    // const theta = THREE.MathUtils.degToRad(parameters.azimuth);
 
-    this.sun.setFromSphericalCoords(1, phi, theta);
+    // this.sun.setFromSphericalCoords(1, phi, theta);
 
-    this.sky.sky.material.uniforms["sunPosition"].value.copy(this.sun);
+    // this.sky.sky.material.uniforms["sunPosition"].value.copy(this.sun);
     this.sea.waterUp.material.uniforms["sunDirection"].value
-      .copy(this.sun)
+      .copy(this.sky.sun)
       .normalize();
     this.sea.waterDown.material.uniforms["sunDirection"].value
-      .copy(this.sun)
+      .copy(this.sky.sun)
       .normalize();
 
     this.scene.environment = this.pmremGenerator.fromScene(
@@ -138,7 +136,8 @@ export class WaterScene {
         }
       });
     }
-
+    this.sky.updateSky();
+    this.updateSun();
     this.sea.update();
 
     this.renderer.render(this.scene, this.camera);
@@ -206,6 +205,14 @@ export class WaterScene {
         0.5,
         1
       );
+      this.sky.effectController.azimuth = map(
+        this.trashStore.getMacroTrashFactor(this.currentYear, this.mode),
+        0,
+        1,
+        -180,
+        180
+      );
+      // this.terrain.updateTexture(this.sky.sun);
     }
   }
 
@@ -235,32 +242,26 @@ export class WaterScene {
     } else {
       this.collectTrash = 1;
       this.scene.add(this.boat.boat);
-      const x = this.boat.boat.position.x;
-      const y = this.boat.boat.position.y;
-      const z = this.boat.boat.position.z;
-      const rotationX = this.boat.boat.rotation.x;
-      const rotationY = this.boat.boat.rotation.y - Math.PI / 2;
-      const rotationZ = this.boat.boat.rotation.z;
-      this.sceneControls.setCameraToPoint(
-        x,
-        y,
-        z,
-        rotationX,
-        rotationY,
-        rotationZ
-      );
+      this.placeCameraBehindBoat();
       // activateButton(collectButton);
     }
+  }
+  placeCameraBehindBoat() {
+    console.log(this.boat.boat.position);
+    const x = this.boat.boat.position.x;
+    const z = this.boat.boat.position.z;
+    const rotationY = this.boat.boat.rotation.y - Math.PI / 2;
+    this.sceneControls.setCameraToPoint(x, z, rotationY);
   }
 
   moveBoat(value) {
     this.boat.speed.vel = value;
-    this.sceneControls.speed.vel = value;
+    this.placeCameraBehindBoat();
   }
 
   rotateBoat(value) {
     this.boat.speed.rot = value;
-    this.sceneControls.speed.rot = value;
+    this.placeCameraBehindBoat();
   }
 
   stopBoat() {

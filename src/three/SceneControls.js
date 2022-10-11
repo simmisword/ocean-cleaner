@@ -41,13 +41,12 @@ export class SceneControls {
     this.camera.position.set(30, -1, 100);
   }
 
-  setCameraToPoint(x, y, z, rotationX, rotationY, rotationZ) {
+  setCameraToPoint(x, z, rotationY) {
     this.camera.position.set(x, -1, z);
-    this.camera.translateX(-10);
-    this.camera.translateZ(5);
-    this.camera.rotation.x = rotationX;
+    this.camera.translateX(-50);
+    this.camera.translateZ(10);
     this.camera.rotation.y = rotationY;
-    this.camera.rotation.z = rotationZ;
+    console.log(this.camera.position);
   }
 
   update() {
@@ -60,6 +59,5 @@ export class SceneControls {
   stop() {
     this.speed.rot = 0;
     this.speed.vel = 0;
-    console.log(this.speed);
   }
 }

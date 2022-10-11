@@ -4,10 +4,10 @@ import { Trash } from "./Trash.js";
 export class TrashObjects {
   constructor() {
     this.MAX_TRASH_COUNT = 500;
-    this.GARBAGE_BAG_COUNT = 10;
+    this.GARBAGE_BAG_COUNT = 200;
     this.WATER_BOTTLE_COUNT = 500;
     this.PAINT_CAN_COUNT = 10;
-    this.SARDINES_CAN_COUNT = 300;
+    this.SARDINES_CAN_COUNT = 200;
     this.PETROL_CAN_COUNT = 10;
     this.trashList = [];
 
@@ -42,7 +42,6 @@ export class TrashObjects {
       0.2,
       0.2
     );
-    console.log(this.trashList);
     // await this.initObject(
     //   "assets/3d-objects/paint_can/scene.gltf",
     //   this.PAINT_CAN_COUNT,
@@ -74,7 +73,5 @@ export class TrashObjects {
         trash.trash.visible = false;
       }
     });
-    console.log(this.trashList);
-    console.log(amount);
   }
 }

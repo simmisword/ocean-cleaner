@@ -1,7 +1,7 @@
 <script setup>
 import { store } from "../store.js"
 import { inject, onMounted } from "vue"
-import { WaterScene } from "../../three/Scene"
+import { WaterScene } from "../../three/WaterScene"
 import { MIN_YEAR } from "../../utils";
 
 const scene = inject("scene")

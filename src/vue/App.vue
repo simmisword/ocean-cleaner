@@ -6,7 +6,7 @@ import Introduction from "./pages/Introduction.vue"
 import OceanScene from "./pages/OceanScene.vue"
 import IntroVideo from "./pages/IntroVideo.vue";
 import { provide } from "vue";
-import { WaterScene } from "../three/Scene";
+import { WaterScene } from "../three/WaterScene";
 
 provide('scene', new WaterScene(currentYear.currentYear));
 

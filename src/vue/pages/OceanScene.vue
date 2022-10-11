@@ -57,10 +57,11 @@ function handleKeys(event) {
     }
   }
 
-  console.log('+')
   if (event.key == "n") {
     scene.controls.autoForward = !scene.controls.autoForward;
     scene.controls.dragToLook = !scene.controls.dragToLook;
+    if (scene.controls.autoForward === false) {
+    }
   }
 }
 
@@ -82,7 +83,3 @@ function stopBoat() {
 
   </div>
 </template>
-
-<script defer>
-
-</script>

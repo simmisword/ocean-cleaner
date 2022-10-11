@@ -1,3 +1,416 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:553877af418399ad4677891232fb5684561fba215aa4e1ecdae47bc91ebdec79
-size 7484
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 1707,
+      "max": [
+        0.7507451772689819,
+        0.7507451772689819,
+        0.40365070104599
+      ],
+      "min": [
+        -0.7507451772689819,
+        -0.7507451772689819,
+        -0.373642235994339
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 20484,
+      "componentType": 5126,
+      "count": 1707,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 1707,
+      "max": [
+        0.9583107829093933,
+        0.9659263491630554,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -0.8819253444671631,
+        -0.9951848387718201,
+        -1.0,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 1707,
+      "max": [
+        0.9953224062919617,
+        0.9962284564971924
+      ],
+      "min": [
+        0.003771541640162468,
+        0.003771541640162468
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 4566,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 40968,
+      "componentType": 5126,
+      "count": 122,
+      "max": [
+        0.7131863236427307,
+        0.7131863236427307,
+        0.2695467174053192
+      ],
+      "min": [
+        -0.7131863236427307,
+        -0.7131863236427307,
+        -0.2695467174053192
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 42432,
+      "componentType": 5126,
+      "count": 122,
+      "max": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        0.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 27312,
+      "componentType": 5126,
+      "count": 122,
+      "max": [
+        0.003049973165616393,
+        0.001238830154761672,
+        -0.9999951720237732,
+        1.0
+      ],
+      "min": [
+        -0.0017417422495782375,
+        -0.002725285477936268,
+        -0.9999998211860657,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 13656,
+      "componentType": 5126,
+      "count": 122,
+      "max": [
+        0.9724640846252441,
+        0.871808648109436
+      ],
+      "min": [
+        0.6982796788215637,
+        0.3699032962322235
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 18264,
+      "componentType": 5125,
+      "count": 192,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "GameDev Nick (https://sketchfab.com/GameDevNick)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/rusty-can-of-sardines-af964af1c58840c1baf3cc0dd8cd987d",
+      "title": "Rusty Can of Sardines"
+    },
+    "generator": "Sketchfab-12.68.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 19032,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 14632,
+      "byteOffset": 19032,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 43896,
+      "byteOffset": 33664,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 29264,
+      "byteOffset": 77560,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 106824,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/Base_baseColor.png"
+    },
+    {
+      "uri": "textures/Base_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/Base_normal.png"
+    },
+    {
+      "uri": "textures/lable_baseColor.png"
+    },
+    {
+      "uri": "textures/lable_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/lable_normal.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Base",
+      "normalTexture": {
+        "index": 2
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "lable",
+      "normalTexture": {
+        "index": 5
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicRoughnessTexture": {
+          "index": 4
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Can1_low_Base_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Can1_low_lable_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5,
+            "TANGENT": 7,
+            "TEXCOORD_0": 8
+          },
+          "indices": 9,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        0.9564838409423828,
+        -0.21162965893745428,
+        0.2008769661188125,
+        0.0,
+        0.17240023612976074,
+        -0.1455353647470472,
+        -0.9742164015769958,
+        0.0,
+        0.23540779948234558,
+        0.966453492641449,
+        -0.10271722078323343,
+        0.0,
+        -8.494938850402832,
+        1.1574146747589102,
+        3.7510335445404057,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "5e3e09557ef043458f0fe459ed04b61d.fbx"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4,
+        5
+      ],
+      "matrix": [
+        100.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.629206793918314e-05,
+        -99.99999999999868,
+        0.0,
+        0.0,
+        99.99999999999868,
+        -1.629206793918314e-05,
+        0.0,
+        0.0,
+        34.906639099121094,
+        0.43720006942749023,
+        1.0
+      ],
+      "name": "Can1_low"
+    },
+    {
+      "mesh": 0,
+      "name": "Can1_low_Base_0"
+    },
+    {
+      "mesh": 1,
+      "name": "Can1_low_lable_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    }
+  ]
+}
