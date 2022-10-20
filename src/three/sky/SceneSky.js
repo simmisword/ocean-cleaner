@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { gsap } from "gsap";
 
 import { Sky } from "three/examples/jsm/objects/Sky.js";
 
@@ -21,9 +22,12 @@ export class SceneSky {
     };
   }
 
-  updateSky() {
+  updateSky(duration) {
     this.skyUniforms = this.sky.material.uniforms;
-    this.skyUniforms["turbidity"].value = this.effectController.turbidity;
+    // gsap.to(this.skyUniforms["turbidity"], {
+    //   duration: 0.5,
+    //   value: this.effectController.turbidity,
+    // });
     this.skyUniforms["rayleigh"].value = this.effectController.rayleigh;
     this.skyUniforms["mieCoefficient"].value =
       this.effectController.mieCoefficient;
@@ -35,8 +39,13 @@ export class SceneSky {
 
     this.sun.setFromSphericalCoords(1, phi, theta);
 
-    this.skyUniforms["sunPosition"].value.copy(this.sun);
-
+    // this.skyUniforms["sunPosition"].value.copy(this.sun);
+    gsap.to(this.skyUniforms["sunPosition"].value, {
+      duration: duration,
+      x: this.sun.x,
+      y: this.sun.y,
+      z: this.sun.z,
+    });
     // this.sky.material.skyUniforms.nee;
   }
 }

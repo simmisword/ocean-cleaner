@@ -1,5 +1,6 @@
 import { loadModel } from "./ObjectLoader";
 import { Trash } from "./Trash.js";
+import { gsap } from "gsap";
 
 export class TrashObjects {
   constructor() {
@@ -65,13 +66,35 @@ export class TrashObjects {
     // );
   }
 
-  updateVisibility(amount) {
+  updateVisibility(amount, duration) {
+    // const old = this.trashList.map((item) => item.trash);
+
+    // gsap.from(old, { duration: 2, visible: true });
+    // var timeline = gsap.timeline({ duration: 0.1 });
+    var t1 = gsap.timeline();
     this.trashList.forEach((trash, i) => {
+      // console.log(trash.material);
       if (i < amount) {
-        trash.trash.visible = true;
+        if (trash.trash.visible === false) {
+          // timeline.from(trash.trash, { visible: false });
+          t1.to(trash.trash, { duration: duration / amount, visible: true });
+        }
+        // trash.trash.visible = true;
       } else {
-        trash.trash.visible = false;
+        // if (trash.trash.visible === true) {
+        // timeline.from(trash.trash, { visible: true });
+        t1.to(trash.trash, {
+          duration: duration / (this.MAX_TRASH_COUNT - amount),
+          visible: false,
+        });
+        // }
+        // trash.trash.visible = false;
       }
     });
+    // gsap.to(this.trashList, {
+    //   duration: 5,
+    //   stagger: { amount: 1, grid: [1, this.MAX_TRASH_COUNT], from: "random" },
+    //   trash: { visible: true },
+    // });
   }
 }

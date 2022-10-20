@@ -14,6 +14,12 @@ export class AudioPlayer {
     this.sound = new THREE.Audio(this.listener);
 
     this.audioCtx = this.listener.context;
+    this.filter = this.audioCtx.createBiquadFilter();
+    this.filter.type = "lowpass";
+    this.filter.gain.value = 1;
+    this.filter.frequency.setTargetAtTime(5000, this.audioCtx.currentTime, 0);
+
+    this.sound.setFilter(this.filter);
 
     this.audioLoader = new THREE.AudioLoader();
   }
@@ -24,12 +30,15 @@ export class AudioPlayer {
     } else {
       this.sound.setVolume(0.5);
     }
-    return this.sound.getVolume() !== 0;
   }
 
   changeTrack(index) {
     this.currentPathID = index;
     if (this.sound.isPlaying) {
+      // this.sound.gain.gain.setTargetAtTime(0, this.audioCtx.currentTime, 20000);
+      for (var i = 0.5; i >= 0; i -= 0.01) {
+        this.sound.setVolume(i);
+      }
       this.sound.stop();
 
       if (this.audioCtx.state !== "suspended") this.play();
@@ -49,10 +58,12 @@ export class AudioPlayer {
       this.audioLoader.load(this.paths[this.currentPathID], function (buffer) {
         sound.setBuffer(buffer);
         sound.setLoop(true);
-        sound.setVolume(sound.getVolume());
         sound.play();
       });
       this.sound = sound;
+      for (var i = 0; i <= 0.5; i += 0.01) {
+        this.sound.setVolume(i);
+      }
     }
   }
 
@@ -60,6 +71,16 @@ export class AudioPlayer {
     return this.sound.isPlaying;
   }
 
+  changeFrequency(value) {
+    var minValue = 40;
+    var maxValue = this.audioCtx.sampleRate / 2;
+    // Logarithm (base 2) to compute how many octaves fall in the range.
+    var numberOfOctaves = Math.log(maxValue / minValue) / Math.LN2;
+    // Compute a multiplier from 0 to 1 based on an exponential scale.
+    var multiplier = Math.pow(2, numberOfOctaves * (value - 1.0));
+    // Get back to the frequency value between min and max.
+    this.filter.frequency.value = maxValue * multiplier;
+  }
   // // Setup routing graph
   // setupRoutingGraph() {
   //   this.compressor = this.context.createDynamicsCompressor();

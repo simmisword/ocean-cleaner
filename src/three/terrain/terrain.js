@@ -40,7 +40,7 @@ export class Terrain {
     this.mesh.position.set(0, -250, 0);
     this.mesh.scale.set(1, 0.5, 1);
 
-    this.mesh.rotation.y = Math.PI / 2;
+    this.mesh.rotation.y = Math.PI;
   }
 
   generateHeight() {

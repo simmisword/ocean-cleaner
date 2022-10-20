@@ -10,9 +10,9 @@ function addEvents(waterScene) {
   const modeButton = document.querySelector("#mode-button");
 
   // activateButton(collectButton);
-  // updateYear();
+  // updateTrash();
 
-  // slider.addEventListener("input", updateYear());
+  // slider.addEventListener("input", updateTrash());
 
   // infobutton.addEventListener("click", openInformation);
 
@@ -27,11 +27,11 @@ function addEvents(waterScene) {
   //     slider.value = parseInt(slider.value) + 1;
   //   }
 
-  //   updateYear();
+  //   updateTrash();
   // });
 
-  // function updateYear() {
-  //   waterScene.updateYear(sliderToYear(slider.value));
+  // function updateTrash() {
+  //   waterScene.updateTrash(sliderToYear(slider.value));
   //   const year = new String(sliderToYear(slider.value));
   //   yearLabel_1.innerHTML = year.slice(0, 2);
   //   yearLabel_2.innerHTML = year.slice(2, 4);

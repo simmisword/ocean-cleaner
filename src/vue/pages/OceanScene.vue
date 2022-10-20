@@ -6,12 +6,17 @@ import Navigation from "../components/Navigation.vue"
 import Scroll from "../components/Scroll.vue"
 import Controls from "../components/Controls.vue"
 import InfoBox from "../components/InfoBox.vue"
+import * as THREE from "three"
 
 
 import { inject, onMounted, ref } from "vue"
 
 
 const scene = inject("scene")
+
+scene.animate();
+scene.updateTrash(1);
+
 
 var scrollCount = 0;
 
@@ -20,20 +25,22 @@ onMounted(() => {
   document
     .getElementById("threeScene")
     .appendChild(scene.renderer.domElement);
+  // scene.updateTrash(1);
+
 });
 
-function updateYear(event) {
+function updateTrash(event) {
 
-  if (scrollCount % 7 === 0) {
+  if (scrollCount % 5 === 0) {
     if (event.deltaY > 0) {
       if (currentYear.currentYear < 2050) {
-        scene.updateYear(1);
+        scene.updateTrash(0.3);
         currentYear.increment(1)
       }
     } else if (event.deltaY < 0) {
       if (currentYear.currentYear > 1950) {
 
-        scene.updateYear(-1);
+        scene.updateTrash(0.3);
         currentYear.increment(-1)
       }
     }
@@ -42,6 +49,12 @@ function updateYear(event) {
 }
 
 function handleKeys(event) {
+  if (event.key == "n") {
+    scene.controls.autoForward = !scene.controls.autoForward;
+    scene.controls.dragToLook = !scene.controls.dragToLook;
+    if (scene.controls.autoForward === false) {
+    }
+  }
   if (scene.switchCollect) {
     if (event.key == "u") {
       scene.moveBoat(1)
@@ -57,12 +70,6 @@ function handleKeys(event) {
     }
   }
 
-  if (event.key == "n") {
-    scene.controls.autoForward = !scene.controls.autoForward;
-    scene.controls.dragToLook = !scene.controls.dragToLook;
-    if (scene.controls.autoForward === false) {
-    }
-  }
 }
 
 function stopBoat() {
@@ -72,7 +79,7 @@ function stopBoat() {
 </script>
 
 <template>
-  <div class="ocean-app" @wheel="updateYear" @keydown="handleKeys" @keyup="stopBoat">
+  <div class="ocean-app" @wheel="updateTrash" @keydown="handleKeys" @keyup="stopBoat">
     <div id="threeScene" ref="threejsScene"></div>
 
     <Navigation />

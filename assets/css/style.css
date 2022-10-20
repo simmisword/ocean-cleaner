@@ -214,8 +214,8 @@ body {
     background-color: white;
     position: fixed;
     top: 10vh;
-    left: 10vw;
-    width: 80vw;
+    left: 20vw;
+    width: 60vw;
     height: 80vh;
     margin: auto;
     padding: 1rem;
@@ -265,9 +265,9 @@ body {
   .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
-    margin-left: 5px;
+    width: 50px;
+    height: 12px;
+    margin: auto 5px;
   }
 
   .switch input {
@@ -291,10 +291,11 @@ body {
   .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
+    height: 24px;
+    width: 24px;
+    top: -6px;
+    left: 0px;
+    bottom: 2px;
     background-color: white;
     color: var(--interaction-color);
     -webkit-transition: 0.4s;
@@ -325,7 +326,40 @@ body {
     border-radius: 34px;
   }
 
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider:checked:hover {
+    border-width: 4px;
+    border-color: aqua;
+  }
+
   .slider.round:before {
     border-radius: 50%;
+  }
+
+  a:not(.external) {
+    text-decoration: none;
+    color: black;
+  }
+
+  a .external {
+    text-decoration: underline;
+    color: var(--interaction-color);
+  }
+
+  h2,
+  p:not(.center) {
+    width: 70%;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .intro-header {
+    width: 70%;
+    margin: auto;
   }
 }

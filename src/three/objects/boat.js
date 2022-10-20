@@ -8,6 +8,8 @@ export class Boat {
     // _scene.applyMatrix(new THREE.Matrix4().makeTranslation(3, 0, -3));
 
     this.boat = _scene;
+    this.boat.visible = false;
+    console.log(this.boat);
     this.speed = {
       vel: 0,
       rot: 0,
@@ -16,7 +18,8 @@ export class Boat {
 
   update() {
     if (this.boat) {
-      this.boat.rotation.y += this.speed.rot;
+      // this.boat.rotation.y += this.speed.rot;
+      this.boat.rotateY(this.speed.rot);
       this.boat.translateX(this.speed.vel);
     }
   }

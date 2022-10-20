@@ -26,6 +26,10 @@ function changeMode(e) {
             <input type="checkbox" @click="switchCollect">
             <span class="slider round"></span>
           </label>
+
+          <label v-if="scene.collectTrash === 1">
+            move boat with [u, h, j, k]
+          </label>
           <!-- <button id="collect-button" @click="switchCollect">Collect</button> -->
         </div>
         <div class="end">

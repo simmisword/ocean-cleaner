@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { gsap } from "gsap";
 
 import { objectLoader, loadModel } from "./objects/ObjectLoader";
 
@@ -15,6 +16,7 @@ import { AudioPlayer } from "../audio/AudioPlayer.js";
 import { Trashstore } from "./calculation/TrashStore.js";
 import { TrashObjects } from "./objects/TrashObjects.js";
 import { map } from "../utils";
+import { currentYear } from "../vue/yearStore";
 
 export class WaterScene {
   constructor(year) {
@@ -26,7 +28,6 @@ export class WaterScene {
     this.worldSize = 1000;
 
     this.collectTrash = 0;
-    this.currentYear = year;
     this.mode = "growth";
     this.trashStore = new Trashstore();
 
@@ -43,7 +44,7 @@ export class WaterScene {
     this.camera = this.sceneControls.camera;
 
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2(0x786563, 0.0003);
+    this.scene.fog = new THREE.FogExp2(0x786563, 0.003);
 
     this.sky = new SceneSky(this.worldSize);
     this.scene.add(this.sky.sky);
@@ -65,23 +66,21 @@ export class WaterScene {
     this.listener = new THREE.AudioListener();
     this.camera.add(this.listener);
     this.audioPlayer = new AudioPlayer(this.listener);
-    this.updateYear(0);
+    // this.updateTrash(0);
   }
 
   async loadObjects() {
     let boatModel = await loadModel("assets/boat/scene.gltf");
 
     this.boat = new Boat(boatModel);
-    if (this.collectTrash) {
-      this.scene.add(this.boat.boat);
-    }
+    this.scene.add(this.boat.boat);
 
     this.trash.trashList.forEach((trash) => {
       this.scene.add(trash.trash);
     });
   }
 
-  updateSun() {
+  updateSun(duration) {
     // const parameters = {
     //   elevation: 2,
     //   azimuth: 180,
@@ -93,12 +92,19 @@ export class WaterScene {
     // this.sun.setFromSphericalCoords(1, phi, theta);
 
     // this.sky.sky.material.uniforms["sunPosition"].value.copy(this.sun);
-    this.sea.waterUp.material.uniforms["sunDirection"].value
-      .copy(this.sky.sun)
-      .normalize();
-    this.sea.waterDown.material.uniforms["sunDirection"].value
-      .copy(this.sky.sun)
-      .normalize();
+    const sun = this.sky.sun.normalize();
+    gsap.to(this.sea.waterUp.material.uniforms["sunDirection"].value, {
+      duration: duration,
+      x: sun.x,
+      y: sun.y,
+      z: sun.z,
+    });
+    gsap.to(this.sea.waterDown.material.uniforms["sunDirection"].value, {
+      duration: duration,
+      x: sun.x,
+      y: sun.y,
+      z: sun.z,
+    });
 
     this.scene.environment = this.pmremGenerator.fromScene(
       this.sky.sky
@@ -117,12 +123,13 @@ export class WaterScene {
   }
 
   render() {
-    const time = performance.now() * 0.001;
+    const time = performance.now() * 0.01;
 
     if (this.collectTrash) {
-      if (this.boat) {
+      if (this.boat.boat.visible) {
         this.boat.update();
-        this.sceneControls.update();
+        // this.placeCameraBehindBoat();
+        // this.sceneControls.update();
 
         this.checkCollisions();
       }
@@ -136,11 +143,20 @@ export class WaterScene {
         }
       });
     }
-    this.sky.updateSky();
-    this.updateSun();
     this.sea.update();
+    this.handleAudioFrequency();
 
     this.renderer.render(this.scene, this.camera);
+  }
+
+  handleAudioFrequency() {
+    if (this.sceneControls.isUnderWater() === true) {
+      this.audioPlayer.changeFrequency(
+        map(this.camera.position.y, 0, -50, 0.4, 0)
+      );
+    } else {
+      this.audioPlayer.changeFrequency(1);
+    }
   }
 
   checkCollisions() {
@@ -187,71 +203,85 @@ export class WaterScene {
     return this.audioPlayer.mute();
   }
 
-  updateYear(increment) {
-    if (this.currentYear <= 2050 && this.currentYear >= 1950) {
-      this.currentYear += increment;
-      this.setTrashAmount();
+  updateTrash(duration) {
+    if (currentYear.currentYear <= 2050 && currentYear.currentYear >= 1950) {
+      this.trashStore.trashfactor.update(currentYear.currentYear, this.mode);
+      this.setTrashAmount(duration);
       let index = Math.round(
-        this.trashStore.getMacroTrashFactor(this.currentYear, this.mode) *
-          (this.audioPlayer.paths.length - 1)
+        this.trashStore.trashfactor.macro * (this.audioPlayer.paths.length - 1)
       );
       if (this.audioPlayer.currentPathID !== index) {
         this.changeAudioMood(index);
       }
-      this.renderer.toneMappingExposure = map(
-        1 - this.trashStore.getMacroTrashFactor(this.currentYear, this.mode),
-        0,
-        1,
-        0.5,
-        1
-      );
+      gsap.to(this.renderer, {
+        duration: duration,
+        toneMappingExposure: map(
+          1 - this.trashStore.trashfactor.macro,
+          0,
+          1,
+          0.6,
+          1
+        ),
+      });
       this.sky.effectController.azimuth = map(
-        this.trashStore.getMacroTrashFactor(this.currentYear, this.mode),
+        this.trashStore.trashfactor.macro,
         0,
         1,
         -180,
         180
       );
+      this.sky.effectController.elevation = map(
+        this.trashStore.trashfactor.macro,
+        1,
+        0,
+        0.5,
+        15
+      );
+      this.sky.updateSky(duration);
+      this.updateSun(duration);
+
       // this.terrain.updateTexture(this.sky.sun);
     }
   }
 
   changeMode(newMode) {
     this.mode = newMode;
-    this.updateYear(0);
+    this.updateTrash(2);
   }
 
-  setTrashAmount() {
-    let amount =
-      this.trashStore.getMacroTrashFactor(this.currentYear, this.mode) *
-      this.trash.MAX_TRASH_COUNT;
-    this.trash.updateVisibility(amount);
+  setTrashAmount(duration) {
+    let amount = this.trashStore.trashfactor.macro * this.trash.MAX_TRASH_COUNT;
 
-    this.plasticParticles.setAmount(
-      this.trashStore.getMicroTrashFactor(this.currentYear, this.mode)
-    );
+    this.trash.updateVisibility(amount, duration);
+
+    this.plasticParticles.setAmount(this.trashStore.trashfactor.micro);
     this.plasticParticles.updatePlasticPosition();
   }
 
   switchCollect() {
     if (this.collectTrash) {
       this.collectTrash = 0;
-      this.scene.remove(this.boat.boat);
+      this.boat.boat.visible = false;
       this.sceneControls.setCameraToStartPoint();
       // deactivateButton(collectButton);
     } else {
       this.collectTrash = 1;
-      this.scene.add(this.boat.boat);
+      this.boat.boat.visible = true;
       this.placeCameraBehindBoat();
       // activateButton(collectButton);
     }
   }
   placeCameraBehindBoat() {
-    console.log(this.boat.boat.position);
+    // console.log(this.boat.boat.position);
     const x = this.boat.boat.position.x;
     const z = this.boat.boat.position.z;
-    const rotationY = this.boat.boat.rotation.y - Math.PI / 2;
-    this.sceneControls.setCameraToPoint(x, z, rotationY);
+    const rotation = this.boat.boat.rotation; // - Math.PI / 2;
+    // console.log(
+    //   "Boat rot y Degree",
+    //   THREE.MathUtils.radToDeg(this.boat.boat.rotation.y)
+    // );
+    // console.log("Boat rot", this.boat.boat.rotation);
+    this.sceneControls.setCameraToPoint(x, z, rotation);
   }
 
   moveBoat(value) {
@@ -261,11 +291,12 @@ export class WaterScene {
 
   rotateBoat(value) {
     this.boat.speed.rot = value;
+    console.log("Boat rot", value);
     this.placeCameraBehindBoat();
   }
 
   stopBoat() {
     this.boat.stop();
-    this.sceneControls.stop();
+    // this.sceneControls.stop();
   }
 }
